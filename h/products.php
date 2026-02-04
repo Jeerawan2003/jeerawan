@@ -79,7 +79,7 @@ if (!isset($_SESSION['aid'])) {
 <div class="container">
     <div class="row mb-4">
         <div class="col-12 text-center">
-            <h2 class="fw-bold text-pink" style="color: #d81b60;">จัดการระบบร้านค้า - พิชญาณัฏฐ์</h2>
+            <h2 class="fw-bold text-pink" style="color: #d81b60;">จัดการระบบร้านค้า - จีรวรรณ์</h2>
             <p class="text-muted">ยินดีต้อนรับเข้าสู่ระบบจัดการข้อมูลหลังบ้าน</p>
             <hr class="mx-auto" style="width: 50px; border-top: 3px solid #f06292;">
         </div>
