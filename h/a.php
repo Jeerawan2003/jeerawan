@@ -9,7 +9,7 @@ session_start();
 </head>
 
 <body>
-<h1>จีรวรรณ์ มาทอ(ส้มจี๊ด)</h1>
+<h1>a.php</h1>
 
 <?php
 $_SESSION['name']="จีรวรรณ์ มาทอ";
