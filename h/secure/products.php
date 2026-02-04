@@ -1,120 +1,81 @@
 <?php
 session_start();
-// ตรวจสอบว่าได้ล็อกอินหรือยัง ถ้าไม่มี Session ให้เด้งกลับไปหน้า login
+include_once("connectdb.php");
+
+// ตรวจสอบ Login
 if (!isset($_SESSION['aid'])) {
-    echo "<script>window.location='index.php';</script>";
+    header("Location: index.php");
     exit;
 }
+
+// ดึงข้อมูลสินค้า (ตรวจสอบชื่อตารางใน DB ของคุณว่าชื่อ product หรือไม่)
+$sql = "SELECT * FROM product ORDER BY p_id DESC";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 ?>
 <!doctype html>
 <html lang="th">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>จัดการระบบ - จีรวรรณ์</title>
+    <title>จัดการสินค้า - พิชญาณัฏฐ์</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #fff5f8;
-            font-family: 'Sarabun', sans-serif;
-        }
-        .navbar {
-            background-color: #f06292 !important;
-        }
-        .card-menu {
-            border: none;
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: #444;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .card-menu:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(240, 98, 146, 0.2);
-            color: #d81b60;
-        }
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background-color: #fce4ec;
-            color: #f06292;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        .logout-btn {
-            color: white !important;
-            border: 1px solid rgba(255,255,255,0.5);
-            border-radius: 20px;
-        }
-        .logout-btn:hover {
-            background-color: rgba(255,255,255,0.2);
-        }
+        body { background-color: #fff5f8; font-family: 'Sarabun', sans-serif; }
+        .navbar { background-color: #f06292 !important; }
+        .card-table { border: none; border-radius: 20px; box-shadow: 0 5px 20px rgba(240, 98, 146, 0.1); }
+        .table thead { background-color: #fce4ec; color: #d81b60; }
+        .btn-pink { background-color: #f06292; color: white; border: none; }
+        .btn-pink:hover { background-color: #ec407a; color: white; }
     </style>
 </head>
-
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark mb-4 shadow-sm">
+<nav class="navbar navbar-dark mb-4">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
-        <div class="ms-auto d-flex align-items-center">
-            <span class="text-white me-3 d-none d-sm-inline">
-                <i class="bi bi-person-circle me-1"></i> 
-                สวัสดี, <?php echo htmlspecialchars($_SESSION['aname']); ?>
-            </span>
-            <a href="logout.php" class="btn btn-sm logout-btn" onclick="return confirm('ยืนยันการออกจากระบบ?')">
-                <i class="bi bi-box-arrow-right me-1"></i> ออกจากระบบ
-            </a>
+        <a class="navbar-brand fw-bold" href="index2.php">ADMIN PANEL</a>
+        <div class="text-white small">
+            สวัสดี, <?php echo htmlspecialchars($_SESSION['aname']); ?> | <a href="logout.php" class="text-white">ออกจากระบบ</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <div class="row mb-4">
-        <div class="col-12 text-center">
-            <h2 class="fw-bold text-pink" style="color: #d81b60;">จัดการระบบร้านค้า - พิชญาณัฏฐ์</h2>
-            <p class="text-muted">ยินดีต้อนรับเข้าสู่ระบบจัดการข้อมูลหลังบ้าน</p>
-            <hr class="mx-auto" style="width: 50px; border-top: 3px solid #f06292;">
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: #d81b60;">รายการสินค้า</h2>
+        <a href="product_add.php" class="btn btn-pink px-4"><i class="bi bi-plus-lg"></i> เพิ่มสินค้า</a>
     </div>
 
-    <div class="row g-4 justify-content-center">
-        <div class="col-6 col-md-3">
-            <a href="products.php" class="card card-menu h-100 p-4 text-center">
-                <div class="icon-box mx-auto">
-                    <i class="bi bi-box-seam-fill"></i>
-                </div>
-                <h5 class="fw-bold mb-0">จัดการสินค้า</h5>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <a href="orders.php" class="card card-menu h-100 p-4 text-center">
-                <div class="icon-box mx-auto">
-                    <i class="bi bi-cart-check-fill"></i>
-                </div>
-                <h5 class="fw-bold mb-0">จัดการออเดอร์</h5>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <a href="costomers.php" class="card card-menu h-100 p-4 text-center">
-                <div class="icon-box mx-auto">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <h5 class="fw-bold mb-0">จัดการลูกค้า</h5>
-            </a>
+    <div class="card card-table">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">ชื่อสินค้า</th>
+                        <th>ราคา</th>
+                        <th>คงเหลือ</th>
+                        <th class="text-center pe-4">จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = mysqli_fetch_array($result)) { ?>
+                    <tr>
+                        <td class="ps-4 fw-bold"><?php echo htmlspecialchars($row['p_name']); ?></td>
+                        <td><?php echo number_format($row['p_price'], 2); ?> บาท</td>
+                        <td><?php echo number_format($row['p_stock']); ?> ชิ้น</td>
+                        <td class="text-center pe-4">
+                            <a href="edit.php?id=<?php echo $row['p_id']; ?>" class="btn btn-sm btn-outline-warning mx-1">แก้ไข</a>
+                            <a href="delete.php?id=<?php echo $row['p_id']; ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('ลบหรือไม่?')">ลบ</a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
