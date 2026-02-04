@@ -51,7 +51,7 @@ include_once("connectdb.php");
             <div class="card login-card p-4">
                 <div class="card-body">
                     <h3 class="text-center mb-4 text-pink fw-bold">เข้าสู่ระบบหลังบ้าน</h3>
-                    <p class="text-center text-muted mb-4 small">จีรวรรณ์ มาทอ/p>
+                    <p class="text-center text-muted mb-4 small">จีรวรรณ์ มาทอ</p>
                     
                     <form method="post" action="">
                         <div class="mb-3">
