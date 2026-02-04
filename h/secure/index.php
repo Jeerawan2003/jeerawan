@@ -9,7 +9,7 @@ include_once("connectdb.php");
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>เข้าสู่ระบบ - กาญจนาภรณ์</title>
+    <title>เข้าสู่ระบบ - จีรวรรณ์ </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -51,7 +51,7 @@ include_once("connectdb.php");
             <div class="card login-card p-4">
                 <div class="card-body">
                     <h3 class="text-center mb-4 text-pink fw-bold">เข้าสู่ระบบหลังบ้าน</h3>
-                    <p class="text-center text-muted mb-4 small">กาญจนาภรณ์ วินทะไชย</p>
+                    <p class="text-center text-muted mb-4 small">จีรวรรณ์ มาทอ/p>
                     
                     <form method="post" action="">
                         <div class="mb-3">

@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>จัดการออเดอร์- พิชญาณัฏฐ์ </title>
+<title>จัดการออเดอร์- จีรวรรณ์  </title>
 </head>
 
 <body>
-<h1>จัดการออเดอร์- พิชญาณัฏฐ์ </h1>
+<h1>จัดการออเดอร์- จีรวรรณ์  </h1>
 
 <?php echo "แอดมิน: ".$_SESSION['aname'];?><br>
 <ul>
